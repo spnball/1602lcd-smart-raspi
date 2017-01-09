@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
 # Set library directory
-import sys, os
-sys.path.insert(0, "%s/../lib" % (os.path.dirname(os.path.realpath(__file__))))
+import sys, os, traceback
+sys.path.insert(0, "%s/../lib/Lcd" % (os.path.dirname(os.path.realpath(__file__))))
 
 # Import library
 from LcdSmartDriver import LcdSize, LcdPin
@@ -10,18 +10,39 @@ from LcdSmartController import LcdSmartController
 import time
 
 
-lcdx = LcdSmartController(
-    lcdSize = LcdSize(), 
-    lcdPin  = LcdPin(), 
-    simulate = True)
+try:
+    lcdx = LcdSmartController(
+        lcdSize = LcdSize(),
+        lcdPin  = LcdPin(),
+        simulate = True)
 
-screenx = lcdx.getScreen()
-screenx.backlightOn()
-screenx.printClear("")
-time.sleep(1)
-screenx.printClear("screenx\nLcdSmartController","center")
-screenx.backlightBlink()
-time.sleep(5)
-screenx.backlightOff()
-time.sleep(1)
-lcdx.kill()
+    screenx = []
+    screenId = [
+        lcdx.getScreenId(),
+        lcdx.addScreen()
+    ]
+
+    for sid in screenId:
+        screenx.append(lcdx.getScreen(sid))
+
+    screenx[1].printClear("Hello\nworld")
+
+    screenx[0].backlightOn()
+    screenx[0].printClear("screenx\nLcdSmartController","center")
+    screenx[0].backlightBlink()
+    time.sleep(2)
+
+    lcdx.setScreen(screenId[1]);
+    time.sleep(2)
+
+    lcdx.setScreen(screenId[0]);
+    time.sleep(1)
+    screenx[0].backlightOff()
+    time.sleep(0.2)
+    lcdx.kill()
+
+except:
+    lcdx.kill()
+    print '-'*60
+    traceback.print_exc(file=sys.stdout)
+    print '-'*60

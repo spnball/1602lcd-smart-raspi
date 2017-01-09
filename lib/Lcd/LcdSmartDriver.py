@@ -1,27 +1,29 @@
-import Adafruit_CharLCD as LCD
 import threading, time, math
+
 
 class LcdSize :
     # Define LCD column and row size for 16x2 LCD.
     row = 2
     column = 16
-    
-class LcdPin :
-    # Raspberry Pi pin configuration:
-    lcd_rs        = 27,  # (15) Note this might need to be changed to 21 for older revision Pi's.
-    lcd_en        = 22,  # (13)
-    lcd_d4        = 18,  # (22 - Red) 
-    lcd_d5        = 23,  # (18 - Orange)
-    lcd_d6        = 24,  # (16 - Yello)
-    lcd_d7        = 25,  # (12 - Green)
-    lcd_backlight = 17
+
+
+class LcdPin:
+    def __init__(self):
+        # Raspberry Pi pin configuration:
+        self.lcd_rs = 27,  # (15) Note this might need to be changed to 21 for older revision Pi's.
+        self.lcd_en = 22,  # (13)
+        self.lcd_d4 = 18,  # (22 - Red)
+        self.lcd_d5 = 23,  # (18 - Orange)
+        self.lcd_d6 = 24,  # (16 - Yello)
+        self.lcd_d7 = 25,  # (12 - Green)
+        self.lcd_backlight = 17
 
 class LcdVirtualRegistry :
     def __init__ (self) :
-            
+
         self.pin = LcdPin()
         self.size = LcdSize()
-        
+
         self.simulate = False
         self.debug = False
         self.buff = self.getEmptyBuffer()
@@ -29,7 +31,15 @@ class LcdVirtualRegistry :
         self.frequency = 0.1
         self.virtualScreenId = 0
         self.killed = False
-        
+
+    def updateBuffer(self, buff):
+        self.buff = buff
+        return self
+
+    def updateBacklight(self, value):
+        self.backlight = value
+        return self
+
     def getEmptyBuffer (self) :
         initBuff = []
         for i in range(1,self.size.row) :
@@ -44,22 +54,30 @@ class CurrentState :
 class LcdSmartDriver(threading.Thread):
     def __init__(self, registry, *args, **kwargs):
         super(LcdSmartDriver,self).__init__(*args, **kwargs)
-        
-        # new LCD driver object
-        self.lcd = LCD.Adafruit_CharLCD(
-                           registry.pin.lcd_rs, registry.pin.lcd_en, 
-                           registry.pin.lcd_d4, registry.pin.lcd_d5, 
-                           registry.pin.lcd_d6, registry.pin.lcd_d7,
-                           registry.size.column, registry.size.row , 
-                           registry.pin.lcd_backlight)
 
         # shared registry variable
         self.registry = registry
-        
-        self.currentState = CurrentState()
         self.simulateReady = False
-        self.lcd.clear()
-        
+
+        try :
+            import Adafruit_CharLCD as LCD
+
+            # new LCD driver object
+            self.lcd = LCD.Adafruit_CharLCD(
+                               registry.pin.lcd_rs, registry.pin.lcd_en,
+                               registry.pin.lcd_d4, registry.pin.lcd_d5,
+                               registry.pin.lcd_d6, registry.pin.lcd_d7,
+                               registry.size.column, registry.size.row ,
+                               registry.pin.lcd_backlight)
+            self.lcd.clear()
+
+        except ImportError :
+            self.registry.simulate = True
+            self.lcd = None
+            print "simulator is enabled because cannot import Adafruit_CharLCD"
+
+        self.currentState = CurrentState()
+
     def simulateDisplay (self):
         if self.currentState.backlight == 0 :
             print "\033[1m",
@@ -92,8 +110,9 @@ class LcdSmartDriver(threading.Thread):
              
         if self.currentState.buff != registryBuff :
             self.currentState.buff = registryBuff
-            self.lcd.set_cursor(0,0)
-            self.lcd.message(self.currentState.buff)
+            if self.lcd != None:
+                self.lcd.set_cursor(0,0)
+                self.lcd.message(self.currentState.buff)
             simulate = True
         
         backlight = None
@@ -104,7 +123,8 @@ class LcdSmartDriver(threading.Thread):
             
         if self.currentState.backlight != backlight :
             self.currentState.backlight = backlight
-            self.lcd.set_backlight(self.currentState.backlight)
+            if self.lcd != None:
+                self.lcd.set_backlight(self.currentState.backlight)
             simulate = True
 
         if simulate and (self.registry.simulate or self.registry.debug) : 

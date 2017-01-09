@@ -36,8 +36,8 @@ class LcdSmartController:
     
     def setScreen(self, screenId = 0) :
         self.currentScreenId = screenId
-        self.registry.screenName = "0x%02X" % (screenId)
-        self.registry.buff = self.screenList[screenId]
+        self.registry.virtualScreenId = screenId
+        self.registry.updateBuffer(self.screenList[screenId])
         return self
         
     def getScreen(self, screenId = None):
