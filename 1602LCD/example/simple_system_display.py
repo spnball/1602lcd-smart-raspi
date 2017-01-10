@@ -4,7 +4,6 @@
 import sys, os, traceback
 sys.path.append("%s/../lib" % (os.path.dirname(os.path.realpath(__file__))))
 sys.path.append("%s/../lib/Lcd" % (os.path.dirname(os.path.realpath(__file__))))
-sys.path.append("%s/../lib/SystemDisplay" % (os.path.dirname(os.path.realpath(__file__))))
 
 # Import library
 from LcdSmartDriver import LcdSize, LcdPin
@@ -20,7 +19,7 @@ try:
     lcdx.addSystemScreen("NetIfaceDisplay")
     lcdx.setSystemScreen("NetIfaceDisplay")
 
-    sleep(5)
+    sleep(30)
     lcdx.kill()
 
 except:

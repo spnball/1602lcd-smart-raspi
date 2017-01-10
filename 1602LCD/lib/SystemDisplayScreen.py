@@ -1,10 +1,14 @@
+import sys, os, time
+sys.path.append("%s/SystemDisplay" % (os.path.dirname(os.path.realpath(__file__))))
+
+
 from LcdSmartController import LcdSmartController
-import collections
+
 
 class SystemDisplayScreen(LcdSmartController, object) :
     def __init__(self, *args, **kwargs):
         super(SystemDisplayScreen,self).__init__(*args, **kwargs)
-
+        self.running = True
         self.modScreen = {}
 
     def addSystemScreen(self, moduleName):
@@ -12,17 +16,27 @@ class SystemDisplayScreen(LcdSmartController, object) :
             screenId = self.addScreen()
 
             mod = __import__(moduleName)
+            classObj = getattr(mod, moduleName)
+
             self.modScreen[moduleName] = {
-                'mod' : mod(self.getScreen(screenId)),
+                'mod' : classObj(self.getScreen(screenId)),
                 'screenId' : screenId
             }
 
 
+            self.modScreen[moduleName]['mod'].start()
+
+            return True
+
+        return False
+
     def setSystemScreen(self, moduleName):
+        print "set screen %d\n\n\n\n" % (self.modScreen[moduleName]['screenId'])
         self.setScreen(self.modScreen[moduleName]['screenId'])
         return self
 
     def kill(self):
+        self.running = False
         super(SystemDisplayScreen, self).kill()
-        for screen in self.modScreen:
-            screen.kill()
+        for mod, screenInfo in self.modScreen.iteritems():
+            screenInfo['mod'].kill()

@@ -1,0 +1,4 @@
+ubuntu:
+    build: docker/ubuntu/
+    volumes:        # Persistent data for www     
+        - ./1602LCD:/root/1602LCD
