@@ -31,7 +31,6 @@ class SystemDisplayScreen(LcdSmartController, object) :
         return False
 
     def setSystemScreen(self, moduleName):
-        print "set screen %d\n\n\n\n" % (self.modScreen[moduleName]['screenId'])
         self.setScreen(self.modScreen[moduleName]['screenId'])
         return self
 

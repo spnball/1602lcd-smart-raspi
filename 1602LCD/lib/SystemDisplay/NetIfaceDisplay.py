@@ -8,6 +8,10 @@ class NetIfaceInfo:
         self.carousel = collections.deque([])
 
 class NetIfaceFetchingInfo (SystemDisplayFetchingInfo) :
+    def __init__(self, info, *args, **kwargs):
+        super(NetIfaceFetchingInfo,self).__init__(info, *args, **kwargs)
+        self.interval = 60
+
     def fetch(self):
         newCarousel = collections.deque([])
         newIface = collections.deque([])
@@ -17,6 +21,7 @@ class NetIfaceFetchingInfo (SystemDisplayFetchingInfo) :
             try:
                 for link in ifaddresses(interface)[AF_INET]:
                     newIface.append(interface)
+                    ipList[interface] = link
             except:
                 pass
 
@@ -27,7 +32,6 @@ class NetIfaceFetchingInfo (SystemDisplayFetchingInfo) :
         for iface in newIface:
             newCarousel.append(iface)
 
-        print ipList
         self.info.interface = ipList
         self.info.carousel = newCarousel
 
@@ -39,7 +43,7 @@ class NetIfaceDisplay(threading.Thread):
         super(NetIfaceDisplay,self).__init__(*args, **kwargs)
         self.screen = screen
         self.running = True
-        self.interval = 10
+        self.interval = 5
         self.info = NetIfaceInfo()
         self.fetchingInfo = NetIfaceFetchingInfo(self.info)
 
@@ -49,17 +53,17 @@ class NetIfaceDisplay(threading.Thread):
 
     def run(self):
         self.fetchingInfo.start()
-        self.screen.printClear("NetIfaceDisplay", "center")
+        self.screen.printClear("Ip address\nrunning..", "center")
 
         while self.running:
-            print self.info.interface
             if len(self.info.carousel) > 0 :
-                print self.info
-                # self.fetchingInfo.carousel.rotate(-1)
-                # currentDisplayIface = self.fetchingInfo.carousel[0]
-                # print self.fetchingInfo.interface[currentDisplayIface]
+                self.info.carousel.rotate(-1)
+                currentDisplayIface = self.info.carousel[0]
+                self.screen.printClear(
+                    "%s\n%s" % (currentDisplayIface, self.info.interface[currentDisplayIface]['addr']),
+                    "center")
 
-            time.sleep(2)
+            time.sleep(5)
 
     def kill(self):
         self.fetchingInfo.kill()

@@ -19,7 +19,8 @@ try:
     lcdx.addSystemScreen("NetIfaceDisplay")
     lcdx.setSystemScreen("NetIfaceDisplay")
 
-    sleep(30)
+    while True : sleep(3600)
+
     lcdx.kill()
 
 except:
