@@ -6,7 +6,6 @@ sys.path.insert(0, "%s/../lib/Lcd" % (os.path.dirname(os.path.realpath(__file__)
 
 # Import library
 from LcdSmartDriver import LcdSmartDriver, LcdVirtualRegistry
-import import_lib
 import time
 
 # ------------------------#
@@ -24,7 +23,7 @@ try:
     registry.buff = "     Hello      \n     World      "
     time.sleep(10)
 
-    registry.buff = " Test to change \n   the world    "
+    registry.buff = " Test changing  \n   the world    "
     time.sleep(3)
 
     registry.backlight = 1

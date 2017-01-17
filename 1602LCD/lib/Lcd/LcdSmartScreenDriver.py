@@ -47,17 +47,16 @@ class LcdSmartScreenDriver(LcdScreenDriver, object) :
         return self
         
     def slideUp(self, time = 0.2):
+        for i in range(0, self.lcdSize.row) :
+            self.buff.append("")
+
         outputLengh = len(self.buff)
         while self.activeLine < outputLengh - self.lcdSize.row :
             self.moveDown().refresh()
             sleep(time)
-        
-        for i in range(0, self.lcdSize.ros - 1) :
-            self.flushLine().refresh()
-            sleep(time)
-                
+
         self.clear().refresh()
-        return self.buff['displayedLine']
+        return self
     
     def slideDown(self, time = 0.2):
         while self.activeLine > 0 :
@@ -65,9 +64,15 @@ class LcdSmartScreenDriver(LcdScreenDriver, object) :
             sleep(time)
         
         for i in range(0, self.lcdRows - 1) :
-            self.getScreen(screen)['buff'].appendleft("")
+            self.getScreen()['buff'].appendleft("")
             self.refresh()
             sleep(time)
             
         self.clear().refresh()
         return self
+
+    def explodeLeft(self):
+        #for i in range(1, self.lcdSize.column) :
+
+
+        self.clear().refresh()
