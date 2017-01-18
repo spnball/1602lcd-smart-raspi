@@ -16,19 +16,30 @@ try:
         lcdPin  = LcdPin(),
         simulate = True)
 
+    velocity = 0.2
+
     # test moving up
     screen = lcdx.getScreen()
     screen.printClear("screenx\nLcdSmartController\ntest\nsliding up\nand\nclear","center")
     time.sleep(2)
-    screen.slideUp(1)
-    screen.printClear("Done", "center")
+    screen.slideUp(velocity)
 
-    # test moving up
-    screen = lcdx.getScreen()
+    screen.printClear("Done", "center")
+    time.sleep(1)
+
+    # # test moving up
     screen.printClear("screenx\nLcdSmartController\ntest\nsliding down\nand\nclear","center")
     time.sleep(2)
-    screen.slideUp(1)
+    screen.slideDown(velocity)
     screen.printClear("Done", "center")
+    time.sleep(1)
+
+    screen.printClear("screenx\nLcdSmartController\ntest\nsliding down\nand\nclear","center")
+    screen.moveDown().moveDown().refresh()
+    time.sleep(3)
+    screen.slideDown(velocity)
+    screen.printClear("Done", "center")
+    time.sleep(1)
 
     lcdx.kill()
 

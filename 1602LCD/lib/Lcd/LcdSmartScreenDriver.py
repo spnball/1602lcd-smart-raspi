@@ -63,8 +63,8 @@ class LcdSmartScreenDriver(LcdScreenDriver, object) :
             self.moveUp().refresh()
             sleep(time)
         
-        for i in range(0, self.lcdRows - 1) :
-            self.getScreen()['buff'].appendleft("")
+        for i in range(0, self.lcdSize.row) :
+            self.buff.appendleft("")
             self.refresh()
             sleep(time)
             

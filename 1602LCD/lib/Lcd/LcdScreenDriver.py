@@ -48,6 +48,7 @@ class LcdScreenDriver :
     def clear(self, screen = None):
         self.buff.clear()
         self.refresh()
+        self.activeLine = 0
         return self
     
     def printClear(self, message, screen = None):
