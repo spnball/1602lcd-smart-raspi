@@ -16,13 +16,33 @@ try:
         lcdPin  = LcdPin(),
         simulate = True)
 
-    velocity = 0.2
-
-    # # test moving left
+    velocity = 0.1
     screen = lcdx.getScreen()
+
+    ## test slide-out right
+    screen.printClear("screenx\nLcdSmartController", "center")
+    time.sleep(1)
+    screen.slideOutRight(velocity)
+    screen.printClear("Done", "center")
+    time.sleep(1)
+
+    screen.printClear("screenx\nSmart", "center")
+    time.sleep(1)
+    screen.slideOutRight(velocity)
+    screen.printClear("Done", "center")
+    time.sleep(1)
+
+
+    ## test slide-out left
     screen.printClear("screenx\nLcdSmartController","center")
-    time.sleep(2)
-    screen.slideLeft(velocity)
+    time.sleep(1)
+    screen.slideOutLeft(velocity)
+    screen.printClear("Done", "center")
+    time.sleep(1)
+
+    screen.printClear("screenx\nSmart", "center")
+    time.sleep(1)
+    screen.slideOutLeft(velocity)
     screen.printClear("Done", "center")
     time.sleep(1)
 

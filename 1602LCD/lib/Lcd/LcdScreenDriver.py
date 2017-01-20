@@ -45,12 +45,37 @@ class LcdScreenDriver :
             
         return self
 
+    def maxlen(self):
+        max = 0
+        for i in range(self.activeLine, self.activeLine + self.lcdSize.row):
+            length = len(self.buff[i]);
+            if max < length :
+                max = length
+        return max
+
+    def indentLength(self, line):
+        count = 0
+        for j in range(0, len(self.buff[line]) - 1):
+            if self.buff[line][j] != ' ':
+                break
+            count += 1
+        return count
+
     def shiftLeft(self, end = None):
-        #if end is None :
-        #    end = self.lcdSize.row
         for i in range(self.activeLine, self.activeLine + self.lcdSize.row) :
-            tempBuffer = "%s %s" % (self.buff[i][:end],self.buff[i][end:])
+            if end == None or end > len(self.buff[i]):
+                tempBuffer = self.buff[i]
+            else :
+                tempBuffer = "%s %s" % (self.buff[i][:end],self.buff[i][end:])
             self.buff[i] = tempBuffer[1:]
+        return self
+
+    def shiftRight(self, begin = None):
+        for i in range(self.activeLine, self.lcdSize.row) :
+            if begin == None :
+                self.buff[i] = " %s" % (self.buff[i])
+            else :
+                self.buff[i] = "%s %s" % (self.buff[i][:begin],self.buff[i][begin:])
         return self
 
     def clear(self, screen = None):

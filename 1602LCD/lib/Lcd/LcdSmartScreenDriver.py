@@ -71,15 +71,22 @@ class LcdSmartScreenDriver(LcdScreenDriver, object) :
         self.clear().refresh()
         return self
 
-    def slideLeft(self, time):
-        for i in range(1, self.lcdSize.column) :
+    def slideOutLeft(self, time):
+        for i in range(0, self.maxlen()) :
             self.shiftLeft().refresh()
             sleep(time)
-        sleep(2)
         return self.clear();
 
-    def explodeLeft(self):
-        #for i in range(1, self.lcdSize.column) :
+    def minLeftSpacelen(self):
+        min = 0
+        for i in range(self.activeLine, self.activeLine + self.lcdSize.row):
+            indent = self.indentLength(i)
+            if min > indent :
+                min = indent
+        return min
 
-
-        self.clear().refresh()
+    def slideOutRight(self, time):
+        for i in range(0, self.lcdSize.column - self.minLeftSpacelen()) :
+            self.shiftRight().refresh()
+            sleep(time)
+        return self.clear()

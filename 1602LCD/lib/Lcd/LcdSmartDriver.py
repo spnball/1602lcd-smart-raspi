@@ -28,7 +28,7 @@ class LcdVirtualRegistry :
         self.debug = False
         self.buff = self.getEmptyBuffer()
         self.backlight = 1
-        self.frequency = 0.1
+        self.frequency = 0.025
         self.virtualScreenId = 0
         self.killed = False
 
