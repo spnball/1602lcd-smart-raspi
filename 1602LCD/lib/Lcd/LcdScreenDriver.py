@@ -44,7 +44,15 @@ class LcdScreenDriver :
             newline = self.buff.popleft()
             
         return self
-        
+
+    def shiftLeft(self, end = None):
+        #if end is None :
+        #    end = self.lcdSize.row
+        for i in range(self.activeLine, self.activeLine + self.lcdSize.row) :
+            tempBuffer = "%s %s" % (self.buff[i][:end],self.buff[i][end:])
+            self.buff[i] = tempBuffer[1:]
+        return self
+
     def clear(self, screen = None):
         self.buff.clear()
         self.refresh()

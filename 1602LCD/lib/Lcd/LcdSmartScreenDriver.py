@@ -71,6 +71,13 @@ class LcdSmartScreenDriver(LcdScreenDriver, object) :
         self.clear().refresh()
         return self
 
+    def slideLeft(self, time):
+        for i in range(1, self.lcdSize.column) :
+            self.shiftLeft().refresh()
+            sleep(time)
+        sleep(2)
+        return self.clear();
+
     def explodeLeft(self):
         #for i in range(1, self.lcdSize.column) :
 
