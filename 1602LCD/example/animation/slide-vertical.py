@@ -6,12 +6,12 @@ sys.path.insert(0, "%s/../../lib/Lcd" % (os.path.dirname(os.path.realpath(__file
 
 # Import library
 from LcdDriver import LcdSize, LcdPin
-from LcdSmartController import LcdSmartController
+from LcdScreen import LcdScreen
 import time
 
 
 try:
-    lcdx = LcdSmartController(
+    lcdx = LcdScreen(
         lcdSize = LcdSize(),
         lcdPin  = LcdPin(),
         simulate = True)

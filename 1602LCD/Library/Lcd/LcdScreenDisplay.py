@@ -1,12 +1,12 @@
-from LcdDriver import LcdDriver, LcdVirtualRegistry
+from Properties.LcdSize import LcdSize
 from collections import deque
     
-class LcdScreenDriver :
+class LcdScreenDisplay :
     def __init__(self, lcdSize):
         self.buff = deque([])
         self.lcdSize = lcdSize
         self.activeLine = 0
-        self.backlight = None
+        self.back_light = None
         
         self.display = "\n".join(self.getDisplay())
         self.backlightOff()
@@ -91,15 +91,15 @@ class LcdScreenDriver :
         return self
         
     def backlightChange(self) :
-        if self.backlight == 0 :
+        if self.back_light == 0 :
             self.backlightOff()
         else :
             self.backlightOn()
             
     def backlightOn(self):
-        self.backlight = 0
+        self.back_light = 0
         return self
         
     def backlightOff(self):
-        self.backlight = 1
+        self.back_light = 1
         return self
