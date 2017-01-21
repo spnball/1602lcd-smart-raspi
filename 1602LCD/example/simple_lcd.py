@@ -1,15 +1,17 @@
 #!/usr/bin/python
 
 # Set library directory
-import sys
 import os
-import traceback
+import sys
 import time
+import traceback
 
-sys.path.insert(0, "%s/../lib/Lcd" % (os.path.dirname(os.path.realpath(__file__))))
+from .. import lib
+
 
 # Import library
-from LcdDriver import LcdDriver, LcdVirtualRegistry
+from LcdDriver import LcdDriver
+from Properties.LcdVirtualRegistry import LcdVirtualRegistry
 
 # ------------------------#
 #      Action start       #

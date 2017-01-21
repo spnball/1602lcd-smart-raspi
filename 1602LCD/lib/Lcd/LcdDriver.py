@@ -2,60 +2,6 @@ import threading
 import time
 import math
 
-
-class LcdSize:
-    # Define LCD column and row size for 16x2 LCD.
-    row = 2
-    column = 16
-
-    def __init__(self):
-        pass
-
-
-class LcdPin:
-    # Raspberry Pi pin configuration:
-    lcd_rs = 12,  # (15) Note this might need to be changed to 21 for older revision Pi's.
-    lcd_en = 16,  # (13)
-    lcd_d4 = 26,  # (22 - Red)
-    lcd_d5 = 19,  # (18 - Orange)
-    lcd_d6 = 13,  # (16 - Yello)
-    lcd_d7 = 6,   # (12 - Green)
-    lcd_back_light = 20
-
-    def __init__(self):
-        pass
-
-
-class LcdVirtualRegistry:
-    pin = LcdPin()
-    size = LcdSize()
-
-    simulate = False
-    debug = False
-
-    back_light = 1
-    frequency = 0.025
-    virtual_screen_id = 0
-    killed = False
-
-    def __init__(self):
-        self.buff = self.get_empty_buffer()
-
-    def update_buffer(self, buff):
-        self.buff = buff
-        return self
-
-    def update_back_light(self, value):
-        self.back_light = value
-        return self
-
-    def get_empty_buffer(self):
-        init_buff = []
-        for i in range(1, self.size.row):
-            init_buff.append(' ' * self.size.column)
-        return init_buff
-
-
 class CurrentState:
     def __init__(self):
         self.buff = None
