@@ -18,6 +18,7 @@ try:
 
     velocity = 0.1
     screen = lcdx.getScreen()
+    screen.backlightOn()
 
     ## test slide-out right
     screen.printClear("screenx\nLcdSmartController", "center")
@@ -46,9 +47,11 @@ try:
     screen.printClear("Done", "center")
     time.sleep(1)
 
+    screen.backlightOff()
     lcdx.kill()
 
 except:
+    screen.backlightOff()
     lcdx.kill()
     print '-'*60
     traceback.print_exc(file=sys.stdout)
