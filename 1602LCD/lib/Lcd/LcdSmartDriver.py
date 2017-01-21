@@ -10,13 +10,13 @@ class LcdSize :
 class LcdPin:
     def __init__(self):
         # Raspberry Pi pin configuration:
-        self.lcd_rs = 27,  # (15) Note this might need to be changed to 21 for older revision Pi's.
-        self.lcd_en = 22,  # (13)
-        self.lcd_d4 = 18,  # (22 - Red)
-        self.lcd_d5 = 23,  # (18 - Orange)
-        self.lcd_d6 = 24,  # (16 - Yello)
-        self.lcd_d7 = 25,  # (12 - Green)
-        self.lcd_backlight = 17
+        self.lcd_rs = 12,  # (15) Note this might need to be changed to 21 for older revision Pi's.
+        self.lcd_en = 16,  # (13)
+        self.lcd_d4 = 26,  # (22 - Red)
+        self.lcd_d5 = 19,  # (18 - Orange)
+        self.lcd_d6 = 13,  # (16 - Yello)
+        self.lcd_d7 = 6,  # (12 - Green)
+        self.lcd_backlight = 20
 
 class LcdVirtualRegistry :
     def __init__ (self) :
