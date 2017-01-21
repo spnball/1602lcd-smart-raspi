@@ -1,4 +1,4 @@
-from LcdDriver import LcdDriver, LcdVirtualRegistry
+from LcdSmartDriver import LcdSmartDriver, LcdVirtualRegistry
 from collections import deque
     
 class LcdScreenDriver :

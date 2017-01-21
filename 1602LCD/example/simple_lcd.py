@@ -5,7 +5,7 @@ import sys, os, traceback
 sys.path.insert(0, "%s/../lib/Lcd" % (os.path.dirname(os.path.realpath(__file__))))
 
 # Import library
-from LcdDriver import LcdDriver, LcdVirtualRegistry
+from LcdSmartDriver import LcdSmartDriver, LcdVirtualRegistry
 import time
 
 # ------------------------#
@@ -17,7 +17,7 @@ registry = LcdVirtualRegistry()
 try:
     registry.simulate = True
 
-    LcdThreading = LcdDriver(registry=registry, name='a')
+    LcdThreading = LcdSmartDriver(registry=registry, name='a')
     LcdThreading.start()
     registry.backlight = 0
     registry.buff = "     Hello      \n     World      "

@@ -5,13 +5,13 @@ import sys, os, traceback
 sys.path.insert(0, "%s/../../lib/Lcd" % (os.path.dirname(os.path.realpath(__file__))))
 
 # Import library
-from LcdDriver import LcdSize, LcdPin
-from LcdSmartAnimation import LcdSmartAnimation
+from LcdSmartDriver import LcdSize, LcdPin
+from LcdSmartController import LcdSmartController
 import time
 
 
 try:
-    lcdx = LcdSmartAnimation(
+    lcdx = LcdSmartController(
         lcdSize = LcdSize(),
         lcdPin  = LcdPin(),
         simulate = True)
@@ -20,7 +20,7 @@ try:
 
     # test moving up
     screen = lcdx.getScreen()
-    screen.printClear("screenx\nLcdSmartAnimation\ntest\nsliding up\nand\nclear","center")
+    screen.printClear("screenx\nLcdSmartController\ntest\nsliding up\nand\nclear","center")
     time.sleep(2)
     screen.slideUp(velocity)
 
@@ -28,13 +28,13 @@ try:
     time.sleep(1)
 
     # # test moving up
-    screen.printClear("screenx\nLcdSmartAnimation\ntest\nsliding down\nand\nclear","center")
+    screen.printClear("screenx\nLcdSmartController\ntest\nsliding down\nand\nclear","center")
     time.sleep(2)
     screen.slideDown(velocity)
     screen.printClear("Done", "center")
     time.sleep(1)
 
-    screen.printClear("screenx\nLcdSmartAnimation\ntest\nsliding down\nand\nclear","center")
+    screen.printClear("screenx\nLcdSmartController\ntest\nsliding down\nand\nclear","center")
     screen.moveDown().moveDown().refresh()
     time.sleep(3)
     screen.slideDown(velocity)

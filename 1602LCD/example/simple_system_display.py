@@ -6,7 +6,7 @@ sys.path.append("%s/../lib" % (os.path.dirname(os.path.realpath(__file__))))
 sys.path.append("%s/../lib/Lcd" % (os.path.dirname(os.path.realpath(__file__))))
 
 # Import library
-from LcdDriver import LcdSize, LcdPin
+from LcdSmartDriver import LcdSize, LcdPin
 from SystemDisplayScreen import SystemDisplayScreen
 from time import sleep
 

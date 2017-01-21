@@ -5,13 +5,13 @@ import sys, os, traceback
 sys.path.insert(0, "%s/../lib/Lcd" % (os.path.dirname(os.path.realpath(__file__))))
 
 # Import library
-from LcdDriver import LcdSize, LcdPin
-from LcdSmartAnimation import LcdSmartAnimation
+from LcdSmartDriver import LcdSize, LcdPin
+from LcdSmartController import LcdSmartController
 import time
 
 
 try:
-    lcdx = LcdSmartAnimation(
+    lcdx = LcdSmartController(
         lcdSize = LcdSize(),
         lcdPin  = LcdPin(),
         simulate = True)
@@ -28,7 +28,7 @@ try:
     screenx[1].printClear("Hello\nworld")
 
     screenx[0].backlightOn()
-    screenx[0].printClear("screenx\nLcdSmartAnimation","center")
+    screenx[0].printClear("screenx\nLcdSmartController","center")
     screenx[0].backlightBlink()
     time.sleep(2)
 
