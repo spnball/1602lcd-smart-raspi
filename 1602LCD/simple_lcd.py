@@ -1,14 +1,13 @@
 #!/usr/bin/python
 
 # Set library directory
-import os
 import sys
 import time
 import traceback
 
 # Import library
-from LcdScrex.Lcd.LcdDriver import LcdDriver
-from LcdScrex.Lcd.Properties.LcdVirtualRegistry import LcdVirtualRegistry
+from Library.Lcd.LcdDriver import LcdDriver
+from Library.Lcd.Properties.LcdVirtualRegistry import LcdVirtualRegistry
 
 # ------------------------#
 #      Action start       #
@@ -39,7 +38,7 @@ try:
 
     registry.killed = True
 
-except:
+finally:
     registry.killed = True
     print '-'*60
     traceback.print_exc(file=sys.stdout)
