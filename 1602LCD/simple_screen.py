@@ -17,25 +17,29 @@ try:
     screenx = []
     screen_id = [
         lcdx.get_screen_id(),
+        lcdx.add_screen(),
         lcdx.add_screen()
     ]
 
     for sid in screen_id:
         screenx.append(lcdx.get_screen(sid))
 
-    screenx[1].printClear("Hello\nworld")
+    screenx[1].print_clear("Hello\nlongggggg text-test")
+    screenx[2].print_clear("Center\nVery long text-test", "right")
 
-    screenx[0].backlightOn()
-    screenx[0].printClear("screenx\nLcdSmartController","center")
-    screenx[0].backlightBlink()
+    screenx[0].back_light_on()
+    screenx[0].print_clear("screenx\nLcdSmartController", "center")
     time.sleep(2)
 
     lcdx.set_screen(screen_id[1]);
     time.sleep(2)
 
+    lcdx.set_screen(screen_id[2]);
+    time.sleep(2)
+
     lcdx.set_screen(screen_id[0]);
     time.sleep(1)
-    screenx[0].backlightOff()
+    screenx[0].back_light_off()
     time.sleep(0.2)
 
 except KeyboardInterrupt:

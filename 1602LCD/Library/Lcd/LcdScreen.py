@@ -1,5 +1,6 @@
 from LcdDriver import LcdDriver
-from LcdSmartScreenDriver import LcdSmartScreenDriver
+from LcdScreenDisplay import LcdScreenDisplay
+from Properties.LcdVirtualRegistry import LcdVirtualRegistry
 
 
 class LcdScreen:
@@ -9,9 +10,9 @@ class LcdScreen:
     screen_list = {}
     current_screen_id = 0
 
-    def __init__(self, registry, driver=None):
+    def __init__(self, registry=None, driver=None):
         # Define registry
-        self.registry = registry
+        self.registry = registry if registry is not None else LcdVirtualRegistry()
         self.set_screen(self.add_screen())
 
         self.driver = LcdDriver(registry=self.registry) if driver is None else driver
@@ -24,7 +25,7 @@ class LcdScreen:
     def add_screen(self, screen=None):
         screen_id = self.screen_increment
         if screen is None:
-            screen = LcdSmartScreenDriver(lcdSize=self.registry.size)
+            screen = LcdScreenDisplay(self.registry.size)
         self.screen_increment += 1
         self.screen_list[screen_id] = screen
         

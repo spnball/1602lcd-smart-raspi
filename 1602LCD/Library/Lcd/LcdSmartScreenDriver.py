@@ -12,31 +12,7 @@ class LcdSmartScreenDriver(LcdScreenDisplay, object) :
         if self.activeLine > 0 :
             self.activeLine -= 1
         return self
-        
-    def alignRight (self, message) :
-        for i, line in enumerate(message):
-            if len(line) >= self.lcdSize.column : 
-                continue
-            message[i] = "%s%s" % (' ' * (self.lcdSize.column - len(line)) , line)
-        return self
-    
-    def alignCenter (self, message) :
-        for i, line in enumerate(message):
-            if len(line) >= self.lcdSize.column : 
-                continue
-            message[i] = "%s%s" % (' ' * ((self.lcdSize.column - len(line))/2) , line)
 
-    def writeBuffer (self, rawMessage, align = 'left') :
-        message = rawMessage.split("\n")
-        
-        # Set Alignment 
-        if align == 'right' :
-            self.alignRight(message);
-        elif align == 'center' :
-            self.alignCenter(message);
-            
-        return super(LcdSmartScreenDriver, self).writeBuffer(message)
-        
     def printClear(self, message, align = 'left'):
         return self.clear().writeBuffer(message, align).refresh()
         
