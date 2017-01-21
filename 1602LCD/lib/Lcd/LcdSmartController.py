@@ -1,4 +1,4 @@
-from LcdSmartDriver import LcdSmartDriver, LcdVirtualRegistry, LcdSize
+from LcdDriver import LcdDriver, LcdVirtualRegistry, LcdSize
 from LcdSmartScreenDriver import LcdSmartScreenDriver
 from collections import deque
 import time
@@ -18,7 +18,7 @@ class LcdSmartController:
         self.screenList = {}
         
         self.setScreen(self.addScreen())
-        self.driver = LcdSmartDriver(registry=self.registry, name='a')
+        self.driver = LcdDriver(registry=self.registry, name='a')
         self.driver.start()
         
     def kill (self):
@@ -37,7 +37,7 @@ class LcdSmartController:
     def setScreen(self, screenId = 0) :
         self.currentScreenId = screenId
         self.registry.virtualScreenId = screenId
-        self.registry.updateBuffer(self.screenList[screenId])
+        self.registry.update_buffer(self.screenList[screenId])
         return self
         
     def getScreen(self, screenId = None):

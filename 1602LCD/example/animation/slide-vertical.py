@@ -5,7 +5,7 @@ import sys, os, traceback
 sys.path.insert(0, "%s/../../lib/Lcd" % (os.path.dirname(os.path.realpath(__file__))))
 
 # Import library
-from LcdSmartDriver import LcdSize, LcdPin
+from LcdDriver import LcdSize, LcdPin
 from LcdSmartController import LcdSmartController
 import time
 
