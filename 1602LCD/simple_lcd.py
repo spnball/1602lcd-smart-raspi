@@ -6,12 +6,9 @@ import sys
 import time
 import traceback
 
-from .. import lib
-
-
 # Import library
-from LcdDriver import LcdDriver
-from Properties.LcdVirtualRegistry import LcdVirtualRegistry
+from LcdScrex.Lcd.LcdDriver import LcdDriver
+from LcdScrex.Lcd.Properties.LcdVirtualRegistry import LcdVirtualRegistry
 
 # ------------------------#
 #      Action start       #
