@@ -1,9 +1,9 @@
-from LcdSmartDriver import LcdSmartDriver, LcdVirtualRegistry, LcdSize
-from LcdSmartScreenDriver import LcdSmartScreenDriver
+from LcdDriver import LcdDriver, LcdVirtualRegistry, LcdSize
+from LcdScreenDisplay import LcdScreenDisplay
 from collections import deque
 import time
 
-class LcdSmartController:
+class LcdSmartAnimation:
     def __init__(self, lcdSize, lcdPin, simulate = False, debug = False):
         
         
@@ -18,7 +18,7 @@ class LcdSmartController:
         self.screenList = {}
         
         self.setScreen(self.addScreen())
-        self.driver = LcdSmartDriver(registry=self.registry, name='a')
+        self.driver = LcdDriver(registry=self.registry, name='a')
         self.driver.start()
         
     def kill (self):
@@ -28,7 +28,7 @@ class LcdSmartController:
     def addScreen(self, screen = None):
         screenId = self.screenIncreasement
         if screen == None : 
-            screen = LcdSmartScreenDriver(lcdSize = self.registry.size)
+            screen = LcdScreenDisplay(lcdSize = self.registry.size)
         self.screenIncreasement += 1
         self.screenList[screenId] = screen
         

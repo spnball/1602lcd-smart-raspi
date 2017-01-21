@@ -1,5 +1,6 @@
 from netifaces import interfaces, ifaddresses, AF_INET
 from SystemDisplayFetchingInfo import SystemDisplayFetchingInfo
+from random import randint
 import threading, time, collections
 
 class NetIfaceInfo:
@@ -63,7 +64,11 @@ class NetIfaceDisplay(threading.Thread):
                     "%s\n%s" % (currentDisplayIface, self.info.interface[currentDisplayIface]['addr']),
                     "center")
 
-            time.sleep(5)
+            time.sleep(10)
+            if randint(0, 1) == 0:
+                self.screen.slideOutLeft()
+            else:
+                self.screen.slideOutRight()
 
     def kill(self):
         self.fetchingInfo.kill()

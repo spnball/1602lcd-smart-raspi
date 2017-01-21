@@ -51,9 +51,9 @@ class CurrentState :
         self.buff = None
         self.backlight = None
 
-class LcdSmartDriver(threading.Thread):
+class LcdDriver(threading.Thread):
     def __init__(self, registry, *args, **kwargs):
-        super(LcdSmartDriver,self).__init__(*args, **kwargs)
+        super(LcdDriver,self).__init__(*args, **kwargs)
 
         # shared registry variable
         self.registry = registry

@@ -2,10 +2,10 @@ import sys, os, time
 sys.path.append("%s/SystemDisplay" % (os.path.dirname(os.path.realpath(__file__))))
 
 
-from LcdSmartController import LcdSmartController
+from LcdSmartAnimation import LcdSmartAnimation
 
 
-class SystemDisplayScreen(LcdSmartController, object) :
+class SystemDisplayScreen(LcdSmartAnimation, object) :
     def __init__(self, *args, **kwargs):
         super(SystemDisplayScreen,self).__init__(*args, **kwargs)
         self.running = True

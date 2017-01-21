@@ -1,7 +1,7 @@
 from LcdScreenDriver import LcdScreenDriver
 from time import sleep
 
-class LcdSmartScreenDriver(LcdScreenDriver, object) :
+class LcdScreenDisplay(LcdScreenDriver, object) :
     def moveDown(self):
         if len(self.buff) - self.activeLine <= self.lcdSize.row :
             return self
@@ -35,7 +35,7 @@ class LcdSmartScreenDriver(LcdScreenDriver, object) :
         elif align == 'center' :
             self.alignCenter(message);
             
-        return super(LcdSmartScreenDriver, self).writeBuffer(message)
+        return super(LcdScreenDisplay, self).writeBuffer(message)
         
     def printClear(self, message, align = 'left'):
         return self.clear().writeBuffer(message, align).refresh()
