@@ -2,7 +2,7 @@
 
 # Set library directory
 import sys, os, traceback
-sys.path.insert(0, "%s/../../lib/LcdScreext" % (os.path.dirname(os.path.realpath(__file__))))
+sys.path.insert(0, "%s/../../lib/Lcd" % (os.path.dirname(os.path.realpath(__file__))))
 
 # Import library
 from LcdDriver import LcdSize, LcdPin
