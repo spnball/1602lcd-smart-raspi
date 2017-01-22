@@ -1,7 +1,7 @@
 from LcdScreenDisplay import LcdScreenDisplay
 from time import sleep
 
-class LcdSmartScreenDriver(LcdScreenDisplay, object) :
+class LcdScreenAnimate(LcdScreenDisplay, object) :
     def moveDown(self):
         if len(self.buff) - self.activeLine <= self.lcdSize.row :
             return self

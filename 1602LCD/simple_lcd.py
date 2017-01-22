@@ -6,8 +6,8 @@ import time
 import traceback
 
 # Import library
-from Library.Lcd.LcdDriver import LcdDriver
-from Library.Lcd.Properties.LcdVirtualRegistry import LcdVirtualRegistry
+from Library.LcdScreext.LcdDriver import LcdDriver
+from Library.LcdScreext.Properties.LcdVirtualRegistry import LcdVirtualRegistry
 
 # ------------------------#
 #      Action start       #

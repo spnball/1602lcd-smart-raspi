@@ -5,8 +5,8 @@ import sys
 import traceback
 
 # Import library
-from Library.Lcd.Properties.LcdVirtualRegistry import LcdVirtualRegistry
-from Library.Lcd.LcdScreen import LcdScreen
+from Library.LcdScreext.Properties.LcdVirtualRegistry import LcdVirtualRegistry
+from Library.LcdScreext.LcdScreen import LcdScreen
 import time
 
 
