@@ -5,34 +5,24 @@ import traceback
 
 # Import library
 from LcdScreext.Lcd.Properties.LcdVirtualRegistry import LcdVirtualRegistry
+from LcdScreext.Lcd.LcdScreen import LcdScreen
 from LcdScreext.Lcd.LcdScreenAnimate import LcdScreenAnimate
 import time
 
 
 try:
     registry = LcdVirtualRegistry()
+
     lcdx = LcdScreen(registry)
+    screext = LcdScreenAnimate(registry)
 
-    for sid in screen_id:
-        screenx.append(lcdx.get_screen(sid))
+    screen_id = lcdx.add_screen(screext)
+    lcdx.set_screen(screen_id)
 
-    screenx[1].print_clear("Hello\nlongggggg text-test")
-    screenx[2].print_clear("Center\nVery long text-test", "right")
+    screext.print_clear("Screen\nBlink", "center")
+    screext.back_light_blink();
 
-    screenx[0].back_light_on()
-    screenx[0].print_clear("screenx\nLcdSmartController", "center")
-    time.sleep(2)
-
-    lcdx.set_screen(screen_id[1]);
-    time.sleep(2)
-
-    lcdx.set_screen(screen_id[2]);
-    time.sleep(2)
-
-    lcdx.set_screen(screen_id[0]);
     time.sleep(1)
-    screenx[0].back_light_off()
-    time.sleep(0.2)
 
 except KeyboardInterrupt:
     pass

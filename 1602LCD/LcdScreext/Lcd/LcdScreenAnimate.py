@@ -3,6 +3,9 @@ from time import sleep
 
 
 class LcdScreenAnimate(LcdScreenDisplay, object):
+    def __init__(self):
+        
+
     def move_down(self):
         if len(self.buff) - self.active_line <= self.lcd_size.row:
             return self
