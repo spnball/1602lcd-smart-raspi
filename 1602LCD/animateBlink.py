@@ -14,7 +14,7 @@ try:
     registry = LcdVirtualRegistry()
 
     lcdx = LcdScreen(registry)
-    screext = LcdScreenAnimate(registry)
+    screext = LcdScreenAnimate(registry.size)
 
     screen_id = lcdx.add_screen(screext)
     lcdx.set_screen(screen_id)
