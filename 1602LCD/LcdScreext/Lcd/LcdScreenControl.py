@@ -3,7 +3,7 @@ from LcdScreenDisplay import LcdScreenDisplay
 from Properties.LcdVirtualRegistry import LcdVirtualRegistry
 
 
-class LcdScreen:
+class LcdScreenControl:
     driver = None
     registry = None
     screen_increment = 0
@@ -33,7 +33,7 @@ class LcdScreen:
     
     def set_screen(self, screen_id=0):
         self.current_screen_id = screen_id
-        self.registry.virtualscreen_id = screen_id
+        self.registry.virtual_screen_id = screen_id
         self.registry.update_buffer(self.screen_list[screen_id])
         return self
         

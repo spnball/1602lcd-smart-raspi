@@ -6,13 +6,13 @@ import traceback
 
 # Import library
 from LcdScreext.Lcd.Properties.LcdVirtualRegistry import LcdVirtualRegistry
-from LcdScreext.Lcd.LcdScreen import LcdScreen
+from LcdScreext.Lcd.LcdScreenControl import LcdScreenControl
 import time
 
 
 try:
     registry = LcdVirtualRegistry()
-    lcdx = LcdScreen(registry)
+    lcdx = LcdScreenControl(registry)
 
     screenx = []
     screen_id = [

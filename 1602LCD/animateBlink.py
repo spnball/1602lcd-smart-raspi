@@ -5,7 +5,7 @@ import traceback
 
 # Import library
 from LcdScreext.Lcd.Properties.LcdVirtualRegistry import LcdVirtualRegistry
-from LcdScreext.Lcd.LcdScreen import LcdScreen
+from LcdScreext.Lcd.LcdScreenControl import LcdScreenControl
 from LcdScreext.Lcd.LcdScreenAnimate import LcdScreenAnimate
 import time
 
@@ -13,14 +13,14 @@ import time
 try:
     registry = LcdVirtualRegistry()
 
-    lcdx = LcdScreen(registry)
+    lcdx = LcdScreenControl(registry)
     screext = LcdScreenAnimate(registry.size)
 
     screen_id = lcdx.add_screen(screext)
     lcdx.set_screen(screen_id)
 
     screext.print_clear("Screen\nBlink", "center")
-    screext.back_light_blink();
+    screext.back_light_blink()
 
     time.sleep(1)
 

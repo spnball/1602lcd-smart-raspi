@@ -16,33 +16,41 @@ try:
     velocity = 0.2
 
     screext = LcdScreenControl(registry)
-
     animation_screen = LcdScreenAnimate(registry.size)
     screen_id = screext.add_screen(animation_screen)
     screext.set_screen(screen_id)
 
-    # test moving up
-    animation_screen.print_clear("screenx\nLcdSmartController\ntest\nsliding up\nand\nclear","center")
-    time.sleep(2)
-    animation_screen.slide_up(velocity)
+    animation_screen.back_light_on()
 
+    ## test slide-out right
+    animation_screen.print_clear("screenx\nLcdSmartController", "center")
+    time.sleep(1)
+    animation_screen.slide_out_right(velocity)
     animation_screen.print_clear("Done", "center")
     time.sleep(1)
 
-    # # test moving up
-    animation_screen.print_clear("screenx\nLcdSmartController\ntest\nsliding down\nand\nclear","center")
-    time.sleep(2)
-    animation_screen.slide_down(velocity)
+    animation_screen.print_clear("screenx\nSmart", "center")
+    time.sleep(1)
+    animation_screen.slide_out_right(velocity)
     animation_screen.print_clear("Done", "center")
     time.sleep(1)
 
-    animation_screen.print_clear("screenx\nLcdSmartController\ntest\nsliding down\nand\nclear","center")
-    animation_screen.move_down().move_down().refresh()
-    time.sleep(3)
-    animation_screen.slide_down(velocity)
+
+    ## test slide-out left
+    animation_screen.print_clear("screenx\nLcdSmartController","center")
+    time.sleep(1)
+    animation_screen.slide_out_left(velocity)
     animation_screen.print_clear("Done", "center")
     time.sleep(1)
 
+    animation_screen.print_clear("screenx\nSmart", "center")
+    time.sleep(1)
+    animation_screen.slide_out_left(velocity)
+    animation_screen.print_clear("Done", "center")
+    time.sleep(1)
+
+    animation_screen.back_light_off()
+    time.sleep(1)
     screext.kill()
 
 except KeyboardInterrupt:
