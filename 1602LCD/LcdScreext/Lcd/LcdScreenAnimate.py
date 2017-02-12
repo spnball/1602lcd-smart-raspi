@@ -1,8 +1,16 @@
 from LcdScreenDisplay import LcdScreenDisplay
 from time import sleep
+from collections import deque
 
 
 class LcdScreenAnimate(LcdScreenDisplay, object):
+    animate_clear_func = deque([
+        'slide_up',
+        'slide_down',
+        'slide_out_left',
+        'slide_out_right'
+    ])
+
     def move_down(self):
         if len(self.buff) - self.active_line <= self.lcd_size.row:
             return self
@@ -45,7 +53,7 @@ class LcdScreenAnimate(LcdScreenDisplay, object):
         self.clear().refresh()
         return self
 
-    def slide_out_left(self, time):
+    def slide_out_left(self, time=0.2):
         for i in range(0, self.maxlen()):
             self.shift_left().refresh()
             sleep(time)
@@ -59,7 +67,7 @@ class LcdScreenAnimate(LcdScreenDisplay, object):
                 min_length = indent
         return min_length
 
-    def slide_out_right(self, time):
+    def slide_out_right(self, time=0.2):
         for i in range(0, self.lcd_size.column - self.min_left_space_len()):
             self.shift_right().refresh()
             sleep(time)

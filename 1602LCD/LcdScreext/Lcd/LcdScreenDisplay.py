@@ -1,16 +1,20 @@
 from Properties.LcdSize import LcdSize
 from collections import deque
+from random import randint
 
 
 class LcdScreenDisplay:
+    buff = deque([])
+    lcd_size = None
+    active_line = 0
+    back_light = None
+    display = None
+    animate_clear_func = deque([])
+
     def __init__(self, lcd_size):
-        self.buff = deque([])
         self.lcd_size = lcd_size
-        self.active_line = 0
-        self.back_light = None
-        
-        self.display = "\n".join(self.get_display())
         self.back_light_off()
+        self.display = "\n".join(self.get_display())
         
     def get_display(self):
         displayed = []
@@ -117,4 +121,15 @@ class LcdScreenDisplay:
         
     def back_light_off(self):
         self.back_light = 1
+        return self
+
+    def animate_clear(self, function_name=False):
+        if function_name == False and self.animate_clear_func:
+            rand = randint(0, len(self.animate_clear_func) - 1)
+            function_name = self.animate_clear_func[rand]
+
+        if function_name:
+            methodToCall = getattr(self, function_name)
+            methodToCall()
+
         return self
