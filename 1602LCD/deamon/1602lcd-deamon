@@ -20,10 +20,10 @@
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="Loops the LCD screen through LCD.py"
 NAME=startup.py
-DAEMON=#SCRIPT_COMMAND#
+DAEMON=#SCRIPT_COMMAND# &
 DAEMON_ARGS=""
 PIDFILE=/var/run/daemonLCD.pid
-SCRIPTNAME=/etc/init.d/1602lcd-deamon
+SCRIPTNAME=/etc/init.d/#EXEC_NAME#
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0

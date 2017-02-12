@@ -1,14 +1,16 @@
 #!/bin/bash
 
-EXEC_NAME="1602lcd-deamon"
+EXEC_NAME="lcd-deamon"
 
 FILE=`pwd`/$0
 CURRENT_DIR=`dirname $FILE`
 
 EXEC_COMMAND=`realpath ${CURRENT_DIR}/../systemDisplayIface.py`
-INITD=`realpath ${CURRENT_DIR}/${EXEC_NAME}`
+INITD=`realpath ${CURRENT_DIR}/1602lcd-deamon`
 
-sed "s|#SCRIPT_COMMAND#|${EXEC_COMMAND}|" ${INITD} > /etc/init.d/${EXEC_NAME}
+sed "s|#SCRIPT_COMMAND#|${EXEC_COMMAND}|" ${INITD} | \
+    sed "s|#EXEC_NAME#|${EXEC_NAME}|"  > /etc/init.d/${EXEC_NAME}
+    
 chmod 744 /etc/init.d/${EXEC_NAME}
 
 update-rc.d ${EXEC_NAME} defaults
