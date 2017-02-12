@@ -13,7 +13,7 @@ sed "s|#SCRIPT_COMMAND#|${EXEC_COMMAND}|" ${INITD} | \
     sed "s|#EXEC_NAME#|${EXEC_NAME}|" |
     sed "s|#EXEC_SCRIPT#|${EXEC_SCRIPT}|"  > /etc/init.d/${EXEC_NAME}
     
-chmod 744 /etc/init.d/${EXEC_NAME}
+chmod 755 /etc/init.d/${EXEC_NAME}
 
 update-rc.d ${EXEC_NAME} defaults
 echo "Installation complated"
