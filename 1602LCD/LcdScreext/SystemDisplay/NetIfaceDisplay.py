@@ -1,70 +1,80 @@
-from netifaces import interfaces, ifaddresses, AF_INET
+from netifaces import interfaces
+from netifaces import ifaddresses
+from netifaces import AF_INET
 from SystemDisplayFetchingInfo import SystemDisplayFetchingInfo
-import threading, time, collections
+import threading
+import time
+import collections
+
 
 class NetIfaceInfo:
     def __init__(self):
         self.interface = {}
         self.carousel = collections.deque([])
 
-class NetIfaceFetchingInfo (SystemDisplayFetchingInfo) :
+
+class NetIfaceFetchingInfo (SystemDisplayFetchingInfo):
     def __init__(self, info, *args, **kwargs):
-        super(NetIfaceFetchingInfo,self).__init__(info, *args, **kwargs)
+        super(NetIfaceFetchingInfo, self).__init__(info, *args, **kwargs)
         self.interval = 60
 
     def fetch(self):
-        newCarousel = collections.deque([])
-        newIface = collections.deque([])
-        ipList = {}
+        new_carousel = collections.deque([])
+        new_iface = collections.deque([])
+        ip_list = {}
 
         for interface in interfaces():
             try:
                 for link in ifaddresses(interface)[AF_INET]:
-                    newIface.append(interface)
-                    ipList[interface] = link
+                    new_iface.append(interface)
+                    ip_list[interface] = link
             except:
                 pass
 
-        for iface in self.info.carousel:
-            newCarousel.append(iface)
-            newIface.remove(iface)
+        for interface in self.info.carousel:
+            new_carousel.append(interface)
+            new_iface.remove(interface)
 
-        for iface in newIface:
-            newCarousel.append(iface)
+        for interface in new_iface:
+            new_carousel.append(interface)
 
-        self.info.interface = ipList
-        self.info.carousel = newCarousel
+        self.info.interface = ip_list
+        self.info.carousel = new_carousel
 
         return self.info.interface
 
 
 class NetIfaceDisplay(threading.Thread):
-    def __init__(self, screen, *args, **kwargs):
-        super(NetIfaceDisplay,self).__init__(*args, **kwargs)
-        self.screen = screen
-        self.running = True
-        self.interval = 5
-        self.info = NetIfaceInfo()
-        self.fetchingInfo = NetIfaceFetchingInfo(self.info)
+    screen = None
+    running = True
+    interval = 5
+    info = None
+    fetching_info = None
 
-    def setInterval(self, interval):
+    def __init__(self, screen, *args, **kwargs):
+        super(NetIfaceDisplay, self).__init__(*args, **kwargs)
+        self.screen = screen
+        self.info = NetIfaceInfo()
+        self.fetching_info = NetIfaceFetchingInfo(self.info)
+
+    def set_interval(self, interval):
         self.interval = interval
         return self
 
     def run(self):
-        self.fetchingInfo.start()
+        self.fetching_info.start()
         self.screen.printClear("Ip address\nrunning..", "center")
 
         while self.running:
-            if len(self.info.carousel) > 0 :
+            if len(self.info.carousel) > 0:
                 self.info.carousel.rotate(-1)
-                currentDisplayIface = self.info.carousel[0]
+                current_display_iface = self.info.carousel[0]
                 self.screen.printClear(
-                    "%s\n%s" % (currentDisplayIface, self.info.interface[currentDisplayIface]['addr']),
+                    "%s\n%s" % (current_display_iface, self.info.interface[current_display_iface]['addr']),
                     "center")
 
             time.sleep(5)
 
     def kill(self):
-        self.fetchingInfo.kill()
+        self.fetching_info.kill()
         self.running = False

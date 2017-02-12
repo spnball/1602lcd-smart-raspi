@@ -96,7 +96,7 @@ class LcdDriver(threading.Thread):
         if current_state.back_light != back_light:
             current_state.back_light = back_light
             if self.lcd is not None:
-                self.lcd.set_back_light(current_state.back_light)
+                self.lcd.set_backlight(current_state.back_light)
             simulate = True
 
         if simulate and (registry.simulate or registry.debug):
