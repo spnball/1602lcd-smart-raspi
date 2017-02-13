@@ -1,5 +1,5 @@
 ### BEGIN INIT INFO
-# Provides:          LCD looping
+# Provides:          lcd-daemon
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
