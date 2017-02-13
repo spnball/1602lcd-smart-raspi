@@ -1,13 +1,13 @@
 #!/bin/bash
 
-EXEC_NAME="lcd-deamon"
+EXEC_NAME="lcd-daemon"
 
 FILE=`pwd`/$0
 CURRENT_DIR=`dirname $FILE`
 
 EXEC_SCRIPT=systemDisplayIface.py
 EXEC_COMMAND=`realpath ${CURRENT_DIR}/../${EXEC_SCRIPT}`
-INITD=`realpath ${CURRENT_DIR}/1602lcd-deamon`
+INITD=`realpath ${CURRENT_DIR}/1602lcd-daemon`
 
 sed "s|#SCRIPT_COMMAND#|${EXEC_COMMAND}|" ${INITD} | \
     sed "s|#EXEC_NAME#|${EXEC_NAME}|" |
